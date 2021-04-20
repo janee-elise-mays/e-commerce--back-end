@@ -9,6 +9,7 @@ Tag.init(
     // define columns
   },
   {
+    // Link to database connection
     sequelize,
     timestamps: false,
     freezeTableName: true,
