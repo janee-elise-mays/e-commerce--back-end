@@ -4,6 +4,13 @@ const Category = require('./Category');
 const Tag = require('./Tag');
 const ProductTag = require('./ProductTag');
 
+Product.belongsTo(Category, {
+  through: {
+    model:
+    unique: false
+  },
+  as: 
+});
 // Products belongsTo Category
 
 // Categories have many Products
