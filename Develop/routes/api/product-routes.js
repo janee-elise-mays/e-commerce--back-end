@@ -20,12 +20,21 @@ router.get('/', (req, res) => {
 
 // get one product
 router.get('/:id', (req, res) => {
-  // find a single product by its `id`
-  // be sure to include its associated Category and Tag data
+  const productData = await Product.findByPk(req.params.id, {
+    include: [
+      Category,
+      {
+         model: Product, 
+         through: ProductTag,
+        },
+      ],
+  })
 });
 
 // create new product
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
+  const productData = await Product.create(req.body);
+  res.status(200).json(locationData);
   /* req.body should look like this...
     {
       product_name: "Basketball",
@@ -99,7 +108,13 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  // delete one product by its `id` value
+  try {
+    const productData = await Product.destroy({
+      where: {
+        id: req.params.id
+      }
+    });
+    res.status(200).json(productnData);
+  }
 });
-
 module.exports = router;
