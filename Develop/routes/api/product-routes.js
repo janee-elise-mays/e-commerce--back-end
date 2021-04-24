@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 
 // get one product
 router.get('/:id', (req, res) => {
-  const productData = await Product.findByPk(req.params.id, {
+  const productData = Product.findByPk(req.params.id, {
     include: [
       Category,
       {
@@ -33,7 +33,7 @@ router.get('/:id', (req, res) => {
 
 // create new product
 router.post('/', async (req, res) => {
-  const productData = await Product.create(req.body);
+  const productData = Product.create(req.body);
   res.status(200).json(locationData);
   
   Product.create(req.body)
@@ -101,13 +101,12 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  try {
-    const productData = await Product.destroy({
-      where: {
-        id: req.params.id
-      }
-    });
-    res.status(200).json(productnData);
-  }
+  Product.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+  .then((product) => res.status(200).json(product))
 });
+
 module.exports = router;
