@@ -7,17 +7,17 @@ router.get('/', (req, res) => {
   Category.findAll({
     include: [Products],
   })
-    .then((categories) => res.json(catgories))
+    .then((categories) => res.json(categories))
   });
-  // find all catego
-
+  
+// find all category
 router.get('/:id', (req, res) => {
    Category.findAll({
      where: {
        id: req.params.id,
      },
    })
-   .then((category) => res.json(catgory))
+   .then((category) => res.json(category))
 });
 
 router.post('/', (req, res) => {
