@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
     .catch((err) => {
       // console.log(err);
       res.status(400).json(err);
-});
+},);
 
 // get one product
 router.get('/:id', async (req, res) => {
@@ -116,5 +116,5 @@ router.delete('/:id', (req, res) => {
     // console.log(err);
     res.status(400).json(err);
 });
-
-module.exports = router;
+});
+module.exports = router}
