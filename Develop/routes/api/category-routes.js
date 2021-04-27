@@ -26,30 +26,36 @@ router.get('/:id', async(req, res) => {
   } catch(err) { res.status(400).json(err);}
 });
 
-router.post('/', (req, res) => {
-  Category.create(req.body)
-  .then((category) => res.status(200).json(category))
-  .catch((err) => res.status(400).json(err));
+router.post('/', async (req, res) => {
+  try {
+    const catData = await Category.create(req.body);
+
+  res.status(200).json(catData);
+  } catch(err) { res.status(400).json(err);}
 });
 
-router.put('/:id', (req, res) => {
-  Category.update(req.body, {
+router.put('/:id', async (req, res) => {
+  try {
+    const catData = await Category.update({
+    category_name: req.body.category_name
+    },
+    {where: {id:req.params.id}
+  }
+  );
+  res.status(200).json(catData);
+  } catch(err) { res.status(400).json(err);}
+});
+
+router.delete('/:id', async (req, res) => {
+  try{
+    const catData = await Category.destroy({
     where: {
       id: req.params.id,
     },
-  })
-  .then((category) => res.status(200).json(category))
-  .catch((err) => res.status(400).json(err));
-});
+  });
 
-router.delete('/:id', (req, res) => {
-  Category.destroy({
-    where: {
-      id: req.params.id,
-    },
-  })
-  .then((category) => res.status(200).json(category))
-  .catch((err) => res.status(400).json(err));
+  res.status(200).json(catData);
+  } catch(err) { res.status(400).json(err);}
 });
 
 module.exports = router;
